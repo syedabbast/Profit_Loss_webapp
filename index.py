@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import streamlit as st
 st.title(':green[AI Profit & Loss Statment]')
 st.image("AI.png")
 st.divider() 
