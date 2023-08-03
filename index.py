@@ -10,7 +10,12 @@ def consolidate_and_sum(df):
     consolidated_df = pd.DataFrame(columns=['Description', 'Amount'])
 
     for description in df['Description'].unique():
-        total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
+        try:
+            total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
+        except Exception as e:
+            st.warning(f"Error occurred while processing description: {description}. Error: {e}")
+            total_amount = 0  # Assign a default value in case of an error
+
         consolidated_df = consolidated_df.append({'Description': description, 'Amount': total_amount}, ignore_index=True)
 
     return consolidated_df
