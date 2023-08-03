@@ -7,17 +7,13 @@ st.divider()
 st.markdown("This AI-powered web app will help you create a profit and loss statement. Just follow the instructions given below...")
 
 def consolidate_and_sum(df):
-    consolidated_df = pd.DataFrame(columns=['Description', 'Amount'])
+    consolidated_data = []
 
     for description in df['Description'].unique():
-        try:
-            total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
-        except Exception as e:
-            st.warning(f"Error occurred while processing description: {description}. Error: {e}")
-            total_amount = 0  # Assign a default value in case of an error
+        total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
+        consolidated_data.append({'Description': description, 'Amount': total_amount})
 
-        consolidated_df = consolidated_df.append({'Description': description, 'Amount': total_amount}, ignore_index=True)
-
+    consolidated_df = pd.DataFrame(consolidated_data)
     return consolidated_df
 
 def main():
