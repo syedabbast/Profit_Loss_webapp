@@ -53,5 +53,4 @@ def main():
     st.write("Let me know what else you want me to add here")
     st.markdown("My Medium Page: [https://medium.com/@SyedAbbasT](https://medium.com/@SyedAbbasT)")
 
-if __name__ == "__main__":
-    main()
+
