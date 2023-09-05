@@ -6,15 +6,15 @@ st.image("AI.png")
 st.divider() 
 st.markdown("This AI-powered web app will help you create a profit and loss statement. Just follow the instructions given below...")
 
-#def consolidate_and_sum(df):
- #   consolidated_data = []
+def consolidate_and_sum(df):
+    consolidated_data = []
 
-  #  for description in df['Description'].unique():
-        #total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
-       # consolidated_data.append({'Description': description, 'Amount': total_amount})
+    for description in df['Description'].unique():
+        total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
+        consolidated_data.append({'Description': description, 'Amount': total_amount})
 
-   # consolidated_df = pd.DataFrame(consolidated_data)
-    #return consolidated_df
+    consolidated_df = pd.DataFrame(consolidated_data)
+    return consolidated_df
 
 def main():
     st.write("Step & Instructions")
@@ -39,10 +39,9 @@ def main():
 
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
-        print(df)
 
         # Perform consolidation and summing
-        #consolidated_data = consolidate_and_sum(df)
+        consolidated_data = consolidate_and_sum(df)
 
         st.header("Consolidated Data of Description")
         st.write("Added similar items with amount sum")
@@ -53,4 +52,5 @@ def main():
     st.write("Let me know what else you want me to add here")
     st.markdown("My Medium Page: [https://medium.com/@SyedAbbasT](https://medium.com/@SyedAbbasT)")
 
-
+if __name__ == "__main__":
+    main()
