@@ -6,15 +6,15 @@ st.image("AI.png")
 st.divider() 
 st.markdown("This AI-powered web app will help you create a profit and loss statement. Just follow the instructions given below...")
 
-def consolidate_and_sum(df):
-    consolidated_data = []
+#def consolidate_and_sum(df):
+ #   consolidated_data = []
 
-    for description in df['Description'].unique():
+  #  for description in df['Description'].unique():
         total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
         consolidated_data.append({'Description': description, 'Amount': total_amount})
 
-    consolidated_df = pd.DataFrame(consolidated_data)
-    return consolidated_df
+   # consolidated_df = pd.DataFrame(consolidated_data)
+    #return consolidated_df
 
 def main():
     st.write("Step & Instructions")
