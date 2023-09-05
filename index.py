@@ -39,6 +39,7 @@ def main():
 
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
+        print(df)
 
         # Perform consolidation and summing
         consolidated_data = consolidate_and_sum(df)
