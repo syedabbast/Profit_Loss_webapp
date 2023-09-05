@@ -10,8 +10,8 @@ st.markdown("This AI-powered web app will help you create a profit and loss stat
  #   consolidated_data = []
 
   #  for description in df['Description'].unique():
-        total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
-        consolidated_data.append({'Description': description, 'Amount': total_amount})
+        #total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
+       # consolidated_data.append({'Description': description, 'Amount': total_amount})
 
    # consolidated_df = pd.DataFrame(consolidated_data)
     #return consolidated_df
@@ -42,7 +42,7 @@ def main():
         print(df)
 
         # Perform consolidation and summing
-        consolidated_data = consolidate_and_sum(df)
+        #consolidated_data = consolidate_and_sum(df)
 
         st.header("Consolidated Data of Description")
         st.write("Added similar items with amount sum")
