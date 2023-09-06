@@ -1,6 +1,14 @@
 import streamlit as st
 import pandas as pd
 
+import streamlit as stst
+st.title(':green[AI Profit & Loss Statment]')
+st.image("AI.png")
+st.divider() 
+st.markdown("This AI powered webapp will help you create profit and loss statment, Just follow the instruction given below...")
+ 
+
+
 # Function to generate profit and loss sheet
 def generate_profit_loss(df):
     # Convert column names to lowercase for consistency
