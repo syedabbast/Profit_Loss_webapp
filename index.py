@@ -1,56 +1,51 @@
-import pandas as pd
 import streamlit as st
+import pandas as pd
 
-st.title(':green[AI Profit & Loss Statement]')
-st.image("AI.png")
-st.divider() 
-st.markdown("This AI-powered web app will help you create a profit and loss statement. Just follow the instructions given below...")
+# Function to generate profit and loss sheet
+def generate_profit_loss(df):
+    # Convert column names to lowercase for consistency
+    df.columns = df.columns.str.lower()
+    
+    # Filter positive and negative amounts
+    income_df = df[df['amount'] > 0]
+    expense_df = df[df['amount'] < 0]
 
-def consolidate_and_sum(df):
-    consolidated_data = []
+    # Calculate total income and expenses
+    total_income = income_df['amount'].sum()
+    total_expense = expense_df['amount'].sum()
 
-    for description in df['Description'].unique():
-        total_amount = df.loc[df['Description'].str.startswith(description), 'Amount'].sum()
-        consolidated_data.append({'Description': description, 'Amount': total_amount})
+    # Calculate net profit (income - expenses)
+    net_profit = total_income + total_expense
 
-    consolidated_df = pd.DataFrame(consolidated_data)
-    return consolidated_df
+    return total_income, total_expense, net_profit
 
+# Streamlit app
 def main():
-    st.write("Step & Instructions")
-
-    bullet_points = [
-        "Step 1: Profit & Loss Statement Cleansing",
-        "Step 2: Coming soon",
-        "Step 3: Coming soon",
-        "Step 4: Coming soon",
-        "Step 5: Coming soon"
-    ]
-
-    st.header("Follow the steps")
-    st.write(bullet_points, type="unordered")
-
-    st.subheader("**Step 1** _Profit & Loss Statement Cleansing_")
-    st.write("_Download your business bank account statement in **csv** and upload it here. Make sure you have a description and amount column in your **csv** file._")
-    st.write("This step will cleanse your file and consolidate duplicates while summing the amounts.")
+    st.title('Profit and Loss Statement')
 
     # File upload
-    uploaded_file = st.file_uploader("Now upload CSV file", type=["csv"])
+    uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 
     if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
+        try:
+            # Read the CSV file into a DataFrame
+            df = pd.read_csv(uploaded_file)
 
-        # Perform consolidation and summing
-        consolidated_data = consolidate_and_sum(df)
+            # Check if 'amount' and 'description' columns exist
+            if 'amount' in df.columns and 'description' in df.columns:
+                st.success("File successfully loaded!")
+                st.write("Profit and Loss Statement:")
 
-        st.header("Consolidated Data of Description")
-        st.write("Added similar items with amount sum")
-        st.write(consolidated_data)
+                total_income, total_expense, net_profit = generate_profit_loss(df)
 
-    st.divider() 
-    st.write(":Blue[By Syed Abbas]")
-    st.write("Let me know what else you want me to add here")
-    st.markdown("My Medium Page: [https://medium.com/@SyedAbbasT](https://medium.com/@SyedAbbasT)")
+                st.write(f"Total Income: ${total_income}")
+                st.write(f"Total Expenses: ${total_expense}")
+                st.write(f"Net Profit (Loss): ${net_profit}")
+
+            else:
+                st.error("The CSV file must have 'Amount' and 'Description' columns.")
+        except Exception as e:
+            st.error(f"Error reading the CSV file: {e}")
 
 if __name__ == "__main__":
     main()
