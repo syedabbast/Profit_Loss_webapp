@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-
 import streamlit as stst
 st.title(':green[AI Profit & Loss Statment]')
 st.image("AI.png")
@@ -8,19 +7,15 @@ st.divider()
 st.markdown("This AI powered webapp will help you create profit and loss statment, Just follow the instruction given below...")
  
 
-
 # Function to generate profit and loss sheet
 def generate_profit_loss(df):
-    # Convert column names to lowercase for consistency
-    df.columns = df.columns.str.lower()
-    
     # Filter positive and negative amounts
-    income_df = df[df['amount'] > 0]
-    expense_df = df[df['amount'] < 0]
+    income_df = df[df['Amount'] > 0]
+    expense_df = df[df['Amount'] < 0]
 
     # Calculate total income and expenses
-    total_income = income_df['amount'].sum()
-    total_expense = expense_df['amount'].sum()
+    total_income = income_df['Amount'].sum()
+    total_expense = expense_df['Amount'].sum()
 
     # Calculate net profit (income - expenses)
     net_profit = total_income + total_expense
@@ -39,8 +34,8 @@ def main():
             # Read the CSV file into a DataFrame
             df = pd.read_csv(uploaded_file)
 
-            # Check if 'amount' and 'description' columns exist
-            if 'amount' in df.columns and 'description' in df.columns:
+            # Check if 'Amount' and 'Description' columns exist
+            if 'Amount' in df.columns and 'Description' in df.columns:
                 st.success("File successfully loaded!")
                 st.write("Profit and Loss Statement:")
 
